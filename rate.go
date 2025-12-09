@@ -7,26 +7,27 @@ import (
 
 // A Rate contains information on shipping cost and delivery time.
 type Rate struct {
-	ID                     string    `json:"id,omitempty" url:"id,omitempty"`
-	Object                 string    `json:"object,omitempty" url:"object,omitempty"`
-	Mode                   string    `json:"mode,omitempty" url:"mode,omitempty"`
-	CreatedAt              *DateTime `json:"created_at,omitempty" url:"created_at,omitempty"`
-	UpdatedAt              *DateTime `json:"updated_at,omitempty" url:"updated_at,omitempty"`
-	Service                string    `json:"service,omitempty" url:"service,omitempty"`
-	Carrier                string    `json:"carrier,omitempty" url:"carrier,omitempty"`
-	CarrierAccountID       string    `json:"carrier_account_id,omitempty" url:"carrier_account_id,omitempty"`
-	ShipmentID             string    `json:"shipment_id,omitempty" url:"shipment_id,omitempty"`
-	Rate                   string    `json:"rate,omitempty" url:"rate,omitempty"`
-	Currency               string    `json:"currency,omitempty" url:"currency,omitempty"`
-	RetailRate             string    `json:"retail_rate,omitempty" url:"retail_rate,omitempty"`
-	RetailCurrency         string    `json:"retail_currency,omitempty" url:"retail_currency,omitempty"`
-	ListRate               string    `json:"list_rate,omitempty" url:"list_rate,omitempty"`
-	ListCurrency           string    `json:"list_currency,omitempty" url:"list_currency,omitempty"`
-	DeliveryDays           int       `json:"delivery_days,omitempty" url:"delivery_days,omitempty"`
-	DeliveryDate           *DateTime `json:"delivery_date,omitempty" url:"delivery_date,omitempty"`
-	DeliveryDateGuaranteed bool      `json:"delivery_date_guaranteed,omitempty" url:"delivery_date_guaranteed,omitempty"`
-	EstDeliveryDays        int       `json:"est_delivery_days,omitempty" url:"est_delivery_days,omitempty"`
-	BillingType            string    `json:"billing_type,omitempty" url:"billing_type,omitempty"`
+	ID                     string       `json:"id,omitempty" url:"id,omitempty"`
+	Object                 string       `json:"object,omitempty" url:"object,omitempty"`
+	Mode                   string       `json:"mode,omitempty" url:"mode,omitempty"`
+	CreatedAt              *DateTime    `json:"created_at,omitempty" url:"created_at,omitempty"`
+	UpdatedAt              *DateTime    `json:"updated_at,omitempty" url:"updated_at,omitempty"`
+	Service                string       `json:"service,omitempty" url:"service,omitempty"`
+	Carrier                string       `json:"carrier,omitempty" url:"carrier,omitempty"`
+	CarrierAccountID       string       `json:"carrier_account_id,omitempty" url:"carrier_account_id,omitempty"`
+	ShipmentID             string       `json:"shipment_id,omitempty" url:"shipment_id,omitempty"`
+	Rate                   string       `json:"rate,omitempty" url:"rate,omitempty"`
+	Currency               string       `json:"currency,omitempty" url:"currency,omitempty"`
+	RetailRate             string       `json:"retail_rate,omitempty" url:"retail_rate,omitempty"`
+	RetailCurrency         string       `json:"retail_currency,omitempty" url:"retail_currency,omitempty"`
+	ListRate               string       `json:"list_rate,omitempty" url:"list_rate,omitempty"`
+	ListCurrency           string       `json:"list_currency,omitempty" url:"list_currency,omitempty"`
+	DeliveryDays           int          `json:"delivery_days,omitempty" url:"delivery_days,omitempty"`
+	DeliveryDate           *DateTime    `json:"delivery_date,omitempty" url:"delivery_date,omitempty"`
+	DeliveryDateGuaranteed bool         `json:"delivery_date_guaranteed,omitempty" url:"delivery_date_guaranteed,omitempty"`
+	EstDeliveryDays        int          `json:"est_delivery_days,omitempty" url:"est_delivery_days,omitempty"`
+	BillingType            string       `json:"billing_type,omitempty" url:"billing_type,omitempty"`
+	Surcharges             []*Surcharge `json:"surcharges,omitempty" url:"surcharges,omitempty"`
 }
 
 // A SmartRate contains information on shipping cost and delivery time in addition to time-in-transit details.
@@ -84,6 +85,17 @@ type TimeInTransit struct {
 	Percentile95 int `json:"percentile_95,omitempty" url:"percentile_95,omitempty"`
 	Percentile97 int `json:"percentile_97,omitempty" url:"percentile_97,omitempty"`
 	Percentile99 int `json:"percentile_99,omitempty" url:"percentile_99,omitempty"`
+}
+
+// Surcharge provides details about additional charges applied to a rate
+type Surcharge struct {
+	Object       string `json:"object,omitempty" url:"object,omitempty"`
+	Type         string `json:"type,omitempty" url:"type,omitempty"`
+	Category     string `json:"category,omitempty" url:"category,omitempty"`
+	Amount       string `json:"amount,omitempty" url:"amount,omitempty"`
+	ListAmount   string `json:"list_amount,omitempty" url:"list_amount,omitempty"`
+	RetailAmount string `json:"retail_amount,omitempty" url:"retail_amount,omitempty"`
+	Currency     string `json:"currency,omitempty" url:"currency,omitempty"`
 }
 
 type getStatelessRatesResponse struct {
