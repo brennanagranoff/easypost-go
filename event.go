@@ -66,8 +66,12 @@ func (e *Event) UnmarshalJSON(data []byte) (err error) {
 	var buf json.RawMessage
 	event := Event{Result: &buf}
 
-	type nonUnmarshaler *Event
-	if err = json.Unmarshal(data, nonUnmarshaler(&event)); err != nil {
+	// A defined struct type (not a defined pointer type) is required to hide
+	// the UnmarshalJSON method from both the classic encoding/json decoder and
+	// the json/v2 engine; a defined pointer type only hides it from the
+	// classic decoder, causing infinite recursion under json/v2.
+	type nonUnmarshaler Event
+	if err = json.Unmarshal(data, (*nonUnmarshaler)(&event)); err != nil {
 		return err
 	}
 
@@ -84,8 +88,8 @@ func (e *EventPayload) UnmarshalJSON(data []byte) (err error) {
 	var s string
 	payload := EventPayload{RequestBody: &s}
 
-	type nonUnmarshaler *EventPayload
-	if err = json.Unmarshal(data, nonUnmarshaler(&payload)); err != nil {
+	type nonUnmarshaler EventPayload
+	if err = json.Unmarshal(data, (*nonUnmarshaler)(&payload)); err != nil {
 		return err
 	}
 
